@@ -1,4 +1,5 @@
 ﻿public static class ComplexStack {
+    //Checks if a parenthesis, a square bracket, or curly bracket is closed or not in a string.
     public static bool DoSomethingComplicated(string line) {
         var stack = new Stack<char>();
         foreach (var item in line) {
