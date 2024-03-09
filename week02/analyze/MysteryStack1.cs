@@ -12,6 +12,5 @@
     }
     //Returns should be the same as the inputs.
     // racecar: racecar
-    // stressed: stressed
-    // 
+    // stressed: desserts
 }
