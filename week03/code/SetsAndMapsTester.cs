@@ -111,6 +111,20 @@ public static class SetsAndMapsTester {
         // To display the pair correctly use something like:
         // Console.WriteLine($"{word} & {pair}");
         // Each pair of words should displayed on its own line.
+        var set = new HashSet<string>();
+        
+        foreach(var word in words){
+            if(word[0] == word[1]){
+                continue;
+            }
+            var symmetric = $"{word[1]}{word[0]}";
+            if(set.Contains(symmetric)){
+                Console.WriteLine($"{word} & {symmetric}");
+            }
+            else {
+                set.Add(word);
+            }
+        }
     }
 
     /// <summary>
@@ -132,6 +146,11 @@ public static class SetsAndMapsTester {
         foreach (var line in File.ReadLines(filename)) {
             var fields = line.Split(",");
             // Todo Problem 2 - ADD YOUR CODE HERE
+            string degreeName = fields[3];
+            if(degrees.ContainsKey(degreeName))
+                degrees[degreeName] ++;
+            else
+                degrees.Add(degreeName, 1);
         }
 
         return degrees;

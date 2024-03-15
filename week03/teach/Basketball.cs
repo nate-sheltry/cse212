@@ -27,10 +27,13 @@ public class Basketball
             var fields = reader.ReadFields()!;
             var playerId = fields[0];
             var points = int.Parse(fields[8]);
+            if(players.ContainsKey(playerId))
+                players[playerId] += points;
+            else
+                players.Add(playerId, points);
         }
+        var topTen = players.OrderByDescending(x => x.Value).Take(10);
 
-        Console.WriteLine($"Players: {{{string.Join(", ", players)}}}");
-
-        var topPlayers = new string[10];
+        Console.WriteLine($"Players: {{{string.Join(", ", topTen)}}}");
     }
 }
