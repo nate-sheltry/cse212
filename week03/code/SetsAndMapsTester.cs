@@ -177,7 +177,25 @@ public static class SetsAndMapsTester {
     /// #############
     private static bool IsAnagram(string word1, string word2) {
         // Todo Problem 3 - ADD YOUR CODE HERE
-        return false;
+        Dictionary<char, int> wordDict1 = new Dictionary<char, int>();
+        Dictionary<char, int> wordDict2 = new Dictionary<char, int>();
+        foreach(var l in word1.ToLower()){
+            if(l == ' ')
+                continue;
+            if(wordDict1.ContainsKey(l))
+                wordDict1[l] += 1;
+            else
+                wordDict1.Add(l, 1);
+        }
+        foreach(var l in word2.ToLower()){
+            if(l == ' ')
+                continue;
+            if(wordDict2.ContainsKey(l))
+                wordDict2[l] += 1; 
+            else
+                wordDict2.Add(l, 1);
+        }
+        return wordDict1.OrderBy(key => key.Key).SequenceEqual(wordDict2.OrderBy(key => key.Key));
     }
 
     /// <summary>
@@ -249,10 +267,13 @@ public static class SetsAndMapsTester {
         var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
         var featureCollection = JsonSerializer.Deserialize<FeatureCollection>(json, options);
-
         // TODO:
         // 1. Add code in FeatureCollection.cs to describe the JSON using classes and properties 
         // on those classes so that the call to Deserialize above works properly.
         // 2. Add code below to print out each place a earthquake has happened today and its magitude.
+
+        foreach(var feature in featureCollection.Features){
+            Console.WriteLine($"{feature.Properties.Place} - Mag {feature.Properties.Mag}");
+        }
     }
 }
