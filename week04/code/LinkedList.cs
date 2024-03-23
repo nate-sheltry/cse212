@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Transactions;
 
 public class LinkedList : IEnumerable<int> {
     private Node? _head;
@@ -28,6 +29,17 @@ public class LinkedList : IEnumerable<int> {
     /// </summary>
     public void InsertTail(int value) {
         // TODO Problem 1
+        Node newNode = new Node(value);
+        if (_tail is null) {
+            _head = newNode;
+            _tail = newNode;
+        }
+        else {
+            newNode.Prev = _tail; // Connect the newNode to the tail
+            _tail.Next = newNode; // Connect the tail's next pointer to the newNode
+            _tail = newNode; // Make the newNode the tail.
+        }
+
     }
 
 
@@ -56,6 +68,14 @@ public class LinkedList : IEnumerable<int> {
     /// </summary>
     public void RemoveTail() {
         // TODO Problem 2
+        if(_head == _tail){
+            _head = null;
+            _tail = null;
+        }
+        else if(_tail is not null){
+            _tail.Prev!.Next = null;
+            _tail = _tail.Prev;
+        }
     }
 
     /// <summary>
@@ -94,6 +114,24 @@ public class LinkedList : IEnumerable<int> {
     /// </summary>
     public void Remove(int value) {
         // TODO Problem 3
+        var current = _head; //Get Front of the linked list!
+
+        while(current != null){
+            if(current.Data == value){
+                if(current == _head)
+                    RemoveHead();
+                else if(current == _tail)
+                    RemoveTail();
+                else{
+                    current.Prev!.Next = current.Next!; //Grab the node before, and make its next pointer equal to the node after current.
+                    current.Next!.Prev = current.Prev!; //Grab the node next, and make it's previous pointer equal to the node before current.
+                    current = null; //remove value and free up for garbage collection.
+                    break;
+                }
+            }
+            
+            current = current.Next; //Use the Pointer to get to the next Item.
+        }
     }
 
     /// <summary>
@@ -101,6 +139,13 @@ public class LinkedList : IEnumerable<int> {
     /// </summary>
     public void Replace(int oldValue, int newValue) {
         // TODO Problem 4
+        var current = _head;
+        while(current != null){
+            if(current.Data == oldValue)
+                current.Data = newValue;
+
+            current = current.Next;
+        }
     }
 
     /// <summary>
@@ -127,7 +172,11 @@ public class LinkedList : IEnumerable<int> {
     /// </summary>
     public IEnumerable Reverse() {
         // TODO Problem 5
-        yield return 0; // replace this line with the correct yield return statement(s)
+        var current = _tail; //We grab the tail since we want our back to be displayed as our front!
+        while(current != null){
+            yield return current.Data;
+            current = current.Prev; //Go to the node before our current to then be yielded on the next iteration.
+        }// replace this line with the correct yield return statement(s)
     }
 
     public override string ToString() {
