@@ -25,12 +25,24 @@ public class Node {
     }
 
     public bool Contains(int value) {
-        // TODO Start Problem 2
-        return false;
+        if(Data == value)
+            return true;
+        if(value > Data)
+            return Right is not null ? Right.Contains(value):false;
+        else if (value < Data)
+            return Left is not null ? Left.Contains(value):false;
+        else 
+            return false;
     }
 
     public int GetHeight() {
         // TODO Start Problem 4
-        return 0; // Replace this line with the correct return statement(s)
+        var leftHeight = 0;
+        var rightHeight = 0;
+        if(Right is not null)
+            rightHeight = Right.GetHeight();
+        if(Left is not null)
+            leftHeight = Left.GetHeight();
+        return Math.Max(leftHeight, rightHeight) + 1; // Replace this line with the correct return statement(s)
     }
 }
