@@ -49,6 +49,21 @@ public static class TreesTester {
         Console.WriteLine(tree3.GetHeight()); // 8 .. any higher and its not balanced
         Console.WriteLine(tree4.GetHeight()); // 1
         Console.WriteLine(tree5.GetHeight()); // 0
+
+        Console.WriteLine("\n=========== VERIFY TREE TESTS ===========");
+        Console.WriteLine(tree1.VerifyTree());
+        Console.WriteLine(tree2.VerifyTree());
+        Console.WriteLine(tree3.VerifyTree());
+        Console.WriteLine(tree4.VerifyTree());
+        Console.WriteLine(tree5.VerifyTree());
+
+        BinarySearchTree badTree = new BinarySearchTree();
+        badTree.Insert(10);
+        badTree.Insert(5);
+        badTree.Insert(15);
+        badTree.InsertSwap(8);
+        Console.WriteLine(badTree.VerifyTree());
+
     }
 
     /// <summary>
@@ -105,5 +120,10 @@ public static class TreesTester {
         bst.Insert(sortedNumbers[middle]);
         InsertMiddle(sortedNumbers, middle+1, last, bst);
         InsertMiddle(sortedNumbers, first, middle-1, bst);
+    }
+
+    /// Verify Binary Search Tree
+    private static void CreateFalseTree(BinarySearchTree bst){
+
     }
 }
